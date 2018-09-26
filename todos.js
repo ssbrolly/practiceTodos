@@ -5,12 +5,31 @@ let todoList = document.querySelector('.todoList');
 let todos =[];
 
 addTodo.addEventListener('click', addTodos);
+todoField.addEventListener('keypress', addOnEnter);
+todoField.focus();
 
-function addTodos(e) {
+function addOnEnter(e) {
+    let keyCode = e.keyCode;
+    if (todoField.value === '') {
+        todoField.focus();
+        return null;
+    } else if (keyCode === 13) {
+        todoField.focus();
+        todos.push(todoField.value);
+        todoField.value = '';
+        renderTodos();
+    };
+};
+
+function addTodos() {
+    if (todoField.value === '') {
+        todoField.focus();
+        return null;
+    }
+    todoField.focus();
     todos.push(todoField.value);
     todoField.value = '';
     renderTodos();
-    console.log(todos);
 };
 
 function renderTodos() {
@@ -31,7 +50,6 @@ function addRemoveButtonEventListener() {
             todos.splice(itemIndex, 1);
             renderTodos();
         });
-        
     });
 };
 
