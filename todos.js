@@ -58,6 +58,7 @@ function getTodoHtml(text, index) {
         <li>
             <span>${text}</span> 
             <div class="controls">
+            <input type="checkbox" />
                 <button class="button_${index}">
                     remove
                 </button>
