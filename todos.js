@@ -33,10 +33,7 @@ function search(e) {
 
 function addOnEnter(e) {
     let keyCode = e.keyCode;
-    if (todoField.value === '') {
-        todoField.focus();
-        return null;
-    } else if (keyCode === 13) {
+    if (keyCode === 13) {
         addTodos();
     };
 };
@@ -88,7 +85,7 @@ function getTodoHtml(todoObj, index) {
         <li style="display:${todoObj.show ? 'block' : 'none'}">
             <span>${todoObj.name}</span> 
             <div class="controls">
-            <input type="checkbox" class="checkbox_${index}" ${todoObj.isDone ? 'checked' : ''} />
+                <input type="checkbox" class="checkbox_${index}" ${todoObj.isDone ? 'checked' : ''} />
                 <button class="button_${index}">
                     remove
                 </button>
