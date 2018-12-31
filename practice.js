@@ -19,20 +19,39 @@ searchField.addEventListener('input', search);
 todoField.focus();
 renderTodos();
 
+function search(e) {
+    let searchValue = e.target.value;
+    todos.forEach(todo => {
+        if (todo.name.indexOf(searchValue) !== -1) {
+            todo.show = true;
+        } else {
+            todo.show = false;
+        };
+    }) ;
+    renderTodos();
+};
+
+function addOnEnter(e) {
+    let keyCode = e.keyCode;
+    if (keyCode === 13) {
+        addTodos();
+    };
+};
+
 function addTodos() {
     if (todoField.value === '') {
         todoField.focus();
         return null;
-    } 
-    todoField.focus();
-    todos.push({
-        name: todoField.value,
-        isDone: false,
-        show: true,
-    });
+    } else {
+        todoField.focus();
+        todos.push({
+            name: todoField.value,
+            show: true,
+            isDone: false,
+        });
+    };
     todoField.value = '';
     renderTodos();
-    
 };
 
 function renderTodos() {
@@ -41,7 +60,7 @@ function renderTodos() {
         todoHtml += getTodoHtml(todo, index);
     });
     todoList.innerHTML = todoHtml;
-    addRemoveButtonEventListener();
+    // addRemoveButtonEventListener();
 };
 
 function getTodoHtml(todoObj, index) {
@@ -49,8 +68,12 @@ function getTodoHtml(todoObj, index) {
         <li style="display:${todoObj.show ? 'block' : 'none'}">
             <span>${todoObj.name}</span>
             <div class="controls">
-                <input type="checkbox" class="checkbox_${index}/>
+                <input type="checkbox" class="checkbox_${index}" ${todoObj.isDone ? 'checked' : ''}/>
+                <button class="button_${index}">
+                    remove
+                </button>
             </div>
         </li>
     `;
-}
+    return html;
+};
