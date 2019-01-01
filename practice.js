@@ -20,14 +20,14 @@ todoField.focus();
 renderTodos();
 
 function search(e) {
-    let searchValue = e.target.value;
+    let searchField = e.target.value;
     todos.forEach(todo => {
-        if (todo.name.indexOf(searchValue) !== -1) {
+        if (todo.name.indexOf(searchField) !== -1) {
             todo.show = true;
         } else {
             todo.show = false;
         };
-    }) ;
+    });
     renderTodos();
 };
 
@@ -46,8 +46,8 @@ function addTodos() {
         todoField.focus();
         todos.push({
             name: todoField.value,
-            show: true,
             isDone: false,
+            show: true,
         });
     };
     todoField.value = '';
@@ -60,8 +60,7 @@ function renderTodos() {
         todoHtml += getTodoHtml(todo, index);
     });
     todoList.innerHTML = todoHtml;
-    // addRemoveButtonEventListener();
-};
+}
 
 function getTodoHtml(todoObj, index) {
     let html = `
@@ -74,6 +73,6 @@ function getTodoHtml(todoObj, index) {
                 </button>
             </div>
         </li>
-    `;
+    `
     return html;
 };
