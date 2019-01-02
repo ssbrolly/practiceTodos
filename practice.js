@@ -20,9 +20,9 @@ todoField.focus();
 renderTodos();
 
 function search(e) {
-    let searchField = e.target.value;
+    let searchValue = e.target.value;
     todos.forEach(todo => {
-        if (todo.name.indexOf(searchField) !== -1) {
+        if (todo.name.indexOf(searchValue) !== -1) {
             todo.show = true;
         } else {
             todo.show = false;
@@ -60,14 +60,27 @@ function renderTodos() {
         todoHtml += getTodoHtml(todo, index);
     });
     todoList.innerHTML = todoHtml;
-}
+    addRemoveButtonEventListener();
+};
+
+function addRemoveButtonEventListener() {
+    let removeButtons = document.querySelectorAll('.todoList button');
+    removeButtons.forEach(removeButton => {
+        removeButton.addEventListener('click', (e) => {
+            let buttonClassName = e.target.className;
+            let itemIndex = buttonClassName.split('_')[1];
+            todos.splice(itemIndex, 1);
+            renderTodos();
+        });
+    });
+};
 
 function getTodoHtml(todoObj, index) {
     let html = `
         <li style="display:${todoObj.show ? 'block' : 'none'}">
             <span>${todoObj.name}</span>
             <div class="controls">
-                <input type="checkbox" class="checkbox_${index}" ${todoObj.isDone ? 'checked' : ''}/>
+                <input type="checkbox" class="checkbox_${index}" ${todoObj.isDone ? 'checked' : '' }/>
                 <button class="button_${index}">
                     remove
                 </button>
