@@ -73,6 +73,12 @@ function addRemoveButtonEventListener() {
             renderTodos();
         });
     });
+    let checkBoxes = document.querySelectorAll('.todoList input[type="checked"]');
+    checkBoxes.forEach((checkBox, index) => {
+        checkBox.addEventListener('change', (e) => {
+            todos[index].isDone = e.target.checked;
+        })
+    })
 };
 
 function getTodoHtml(todoObj, index) {
