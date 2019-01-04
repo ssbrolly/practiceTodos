@@ -77,8 +77,8 @@ function addRemoveButtonEventListener() {
     checkBoxes.forEach((checkBox, index) => {
         checkBox.addEventListener('change', (e) => {
             todos[index].isDone = e.target.checked;
-        })
-    })
+        });
+    });
 };
 
 function getTodoHtml(todoObj, index) {
