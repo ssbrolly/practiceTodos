@@ -21,7 +21,7 @@ renderTodos();
 
 function search(e) {
     let searchValue = e.target.value;
-    todos.forEach(todo => {
+    todos.forEach((todo, index) => {
         if (todo.name.indexOf(searchValue) !== -1) {
             todo.show = true;
         } else {
@@ -47,7 +47,7 @@ function addTodos() {
         todos.push({
             name: todoField.value,
             isDone: false,
-            show: true,
+            show: true,            
         });
     };
     todoField.value = '';
@@ -65,17 +65,17 @@ function renderTodos() {
 
 function addRemoveButtonEventListener() {
     let removeButtons = document.querySelectorAll('.todoList button');
-    removeButtons.forEach(removeButton => {
+    removeButtons.forEach((removeButton, index) => {
         removeButton.addEventListener('click', (e) => {
-            let buttonClassName = e.target.className;
-            let itemIndex = buttonClassName.split('_')[1];
+            let removeClass = e.target.className;
+            let itemIndex = removeClass.split('_')[1];
             todos.splice(itemIndex, 1);
             renderTodos();
         });
     });
-    let checkBoxes = document.querySelectorAll('.todoList input[type="checked"]');
-    checkBoxes.forEach((checkBox, index) => {
-        checkBox.addEventListener('change', (e) => {
+    let checkBoxes = document.querySelectorAll('.todoList, input[type="checkbox"]');
+    checkBoxes.forEach((checkbox, index) => {
+        checkbox.addEventListener('change', (e) => {
             todos[index].isDone = e.target.checked;
         });
     });
@@ -86,7 +86,7 @@ function getTodoHtml(todoObj, index) {
         <li style="display:${todoObj.show ? 'block' : 'none'}">
             <span>${todoObj.name}</span>
             <div class="controls">
-                <input type="checkbox" class="checkbox_${index}" ${todoObj.isDone ? 'checked' : '' }/>
+                <input type="checkbox" class="checkbox_${index}" ${todoObj.isDone ? 'checked' : ''}/>
                 <button class="button_${index}">
                     remove
                 </button>
@@ -95,3 +95,4 @@ function getTodoHtml(todoObj, index) {
     `
     return html;
 };
+
